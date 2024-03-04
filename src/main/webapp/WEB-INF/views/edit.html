@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+<header>
+    <h1>Задачи</h1>
+</header>
+<main>
+    <section class="tasks">
+        <h2>Список задач</h2>
+        <ul th:each="task : ${tasks}">
+            <li class="task-wrapper">
+                <h3 th:text="${task.task}"></h3>
+                <p th:text="${task.deadline}"></p>
+                <form th:action="@{/}" th:method="DELETE">
+                    <input type="hidden" name="id" th:value="${task.id}"/>
+                    <button type="submit">Редактровать</button>
+                </form>
+                    <form th:action="@{/delete/{id}(id=${task.id})}" th:method="DELETE">
+                        <input type="hidden" name="id" th:value="${task.id}"/>
+                        <button type="submit">Удалить задачу</button>
+                    </form>
+            </li>
+        </ul>
+    </section>
+    <section class="add-task">
+        <h2>Добавить задачу</h2>
+        <form action="/" method="post" th:object="${tasks}">
+            <input type="text" placeholder="Название задачи" name="task"/>
+            <input type="text" placeholder="Дедлайн" name="deadline"/>
+            <textarea placeholder="Описание задачи"></textarea>
+            <input type="submit" value="Добавить"/>
+        </form>
+    </section>
+</main>
+<footer>
+</footer>
+</body>
+</html>

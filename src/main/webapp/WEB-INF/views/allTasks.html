@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+<header>
+    <h1>Задачи</h1>
+</header>
+<main>
+    <section class="tasks">
+        <h2>Список задач</h2>
+        <ul th:each="task : ${tasks}">
+            <li class="task-wrapper">
+                <h3 th:text="${task.task}"></h3>
+                <p th:text="${task.deadline}"></p>
+                <button type="button" class="edit-button">Редактировать</button>
+                <form th:action="@{/update/{id}(id=${task.id})}" th:method="PATCH" hidden>
+                    <input type="hidden" name="id" th:value="${task.id}" />
+                    <input type="text" name="task" th:value="${task.task}" required>
+                    <input type="text" name="deadline" th:value="${task.deadline}" required>
+                    <input type="submit" value="Обновить задачу">
+                </form>
+                <form th:action="@{/delete/{id}(id=${task.id})}" th:method="DELETE">
+                    <input type="hidden" name="id" th:value="${task.id}" />
+                    <button type="submit">Удалить задачу</button>
+                </form>
+            </li>
+        </ul>
+    </section>
+    <section class="add-task">
+        <h2>Добавить задачу</h2>
+        <form action="/" method="post" th:object="${tasks}">
+            <input type="text" placeholder="Название задачи"  name="task" />
+            <input type="text" placeholder="Дедлайн" name = "deadline" />
+            <input type="submit" value="Добавить"/>
+        </form>
+    </section>
+</main>
+<footer>
+</footer>
+</body>
+<script>
+    const editButtons = document.querySelectorAll(".edit-button");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const form = button.nextElementSibling;
+            form.hidden = !form.hidden; // Toggle form visibility
+        });
+    });
+</script>
+</html>
+

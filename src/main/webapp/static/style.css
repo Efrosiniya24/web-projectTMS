@@ -1,0 +1,85 @@
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    margin: 0 auto;
+    width: 900px;
+}
+
+header {
+    background-color: #ADC9E6;
+    padding: 1px;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+}
+
+section {
+    margin: 20px 0;
+}
+
+.tasks {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.tasks h2 {
+    margin-top: 0;
+}
+
+.tasks ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tasks li {
+    margin-bottom: 20px;
+}
+
+.tasks li.task-wrapper {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    opacity: 1;
+}
+
+.tasks li.task-wrapper h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.tasks li.task-wrapper p {
+    margin-bottom: 10px;
+}
+
+.add-task {
+    background-color: #eee;
+    padding: 10px;
+}
+
+.add-task h2 {
+    margin-top: 0;
+}
+
+.add-task form {
+    margin: 0;
+    padding: 0;
+}
+
+.add-task input,
+.add-task textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.add-task button {
+    background-color: #2196f3;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
