@@ -2,7 +2,6 @@ package homework.homework38.Controller;
 
 
 import homework.homework38.Model.Tasks;
-import homework.homework38.Service.TasksService;
 import homework.homework38.dao.TaskDao;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,11 @@ public class TasksController {
     }
 
     @PatchMapping("/update/{id}")
-    public String update(@ModelAttribute("person") @Valid Tasks tasks, BindingResult bindingResult,
+    public String update(@ModelAttribute("tasks") @Valid Tasks tasks, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "allTasks";
-
-        taskDao.update(id, tasks);
+       taskDao.update(id, tasks);
         return "redirect:/";
     }
 

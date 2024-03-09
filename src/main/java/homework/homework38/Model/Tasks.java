@@ -16,7 +16,7 @@ public class Tasks {
 
     @NotEmpty(message = "Task should not be empty")
     @Size(min = 1, max = 10000, message = "Task should be between 1 and 10000 characters")
-    private String task;
+    private String description;
 
 
     @NotEmpty(message = "Deadline should not be empty")

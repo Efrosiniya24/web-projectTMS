@@ -6,8 +6,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -29,12 +27,12 @@ public class TaskDao {
     }
 
     public void save(Tasks task) {
-        jdbcTemplate.update("INSERT INTO Tasks (id, task, deadline) VALUES (?, ?, ?)", task.getId(), task.getTask(), task.getDeadline());
+        jdbcTemplate.update("INSERT INTO Tasks (id, description, deadline) VALUES (?, ?, ?)", task.getId(), task.getDescription(), task.getDeadline());
     }
 
 
     public void update(int id, Tasks updatedTasks) {
-       jdbcTemplate.update("UPDATE Tasks SET task = ?, deadline = ? WHERE id = ?", updatedTasks.getTask(), updatedTasks.getDeadline(), id);
+       jdbcTemplate.update("UPDATE Tasks SET description = ?, deadline = ? WHERE id = ?", updatedTasks.getDescription(), updatedTasks.getDeadline(), id);
     }
 
     public void delete(int id) {
