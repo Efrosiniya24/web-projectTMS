@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Задачи</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
 <header>
@@ -12,52 +11,48 @@
 <main>
     <section class="tasks">
         <h2>Список задач</h2>
-        <ul th:each="taskk : ${tasks}">
+        <ul th:each="task : ${tasks}">
             <li class="task-wrapper">
-
-                <h3 th:text="${taskk.description}"></h3>
-
-                <p th:text="${taskk.deadline}"></p>
-
+                <h3 th:text="${task.description}"></h3>
+                <p th:text="${task.deadline}"></p>
                 <button type="button" class="edit-button">Редактировать</button>
-
-                <form th:action="@{/update/{id}(id=${taskk.id})}" th:method="PATCH" hidden>
-                    <input type="hidden" name="id" th:value="${taskk.id}" />
-                    <input type="text" name="description" th:value="${taskk.description}" required/>
-                    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="${taskk.description}">Name Error</div>
-                    <input type="text" name="deadline" th:value="${taskk.deadline}" required/>
-                    <input type="submit" value="Обновить задачу">
+                <form th:method="PATCH" th:action="@{/update/{id}(id=${task.id})}" hidden>
+                    <input type="hidden" name="id" th:value="${task.id}" />
+                    <input type="text" name="description" th:value="${task.description}" required />
+<!--                    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="${task.description}">Name Error</div>-->
+                    <input type="text" name="deadline" th:value="${task.deadline}" required/>
+<!--                    <div style="color:red" th:if="${#fields.hasErrors('deadline')}" th:errors="${task.deadline}">Name Error</div>-->
+                    <button type="submit">Обновить задачу</button>
                 </form>
-
-                <form th:action="@{/delete/{id}(id=${taskk.id})}" th:method="DELETE">
-                    <input type="hidden" name="id" th:value="${taskk.id}" />
+                <form th:action="@{/delete/{id}(id=${task.id})}" th:method="DELETE">
+                    <input type="hidden" name="id" th:value="${task.id}" />
                     <button type="submit">Удалить задачу</button>
                 </form>
-
             </li>
         </ul>
     </section>
     <section class="add-task">
         <h2>Добавить задачу</h2>
-        <form action="/" method="post" th:object="${tasks}">
-            <input type="text" placeholder="Название задачи"  name="description" />
-            <input type="text" placeholder="Дедлайн" name = "deadline" />
-            <input type="submit" value="Добавить"/>
+        <form action="/" th:method="post" th:object="${task}">
+            <input type="text" placeholder="Название задачи" name="description" th:field="*{description}" required />
+            <!--                    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="${task.description}">Name Error</div>-->
+            <input type="text" placeholder="Дедлайн" name="deadline" th:field="*{deadline}" required />
+            <!--                    <div style="color:red" th:if="${#fields.hasErrors('deadline')}" th:errors="${task.deadline}">Name Error</div>-->
+            <input type="submit" value="Добавить" />
         </form>
     </section>
 </main>
-<footer>
-</footer>
-</body>
+<footer></footer>
 <script>
-    const editButtons = document.querySelectorAll(".edit-button");
-
-    editButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const form = button.nextElementSibling;
-            form.hidden = !form.hidden; // Toggle form visibility
+    window.onload = function() {
+        const editButtons = document.querySelectorAll(".edit-button");
+        editButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const form = button.nextElementSibling;
+                form.hidden = !form.hidden;
+            })
         });
-    });
+    }
 </script>
+</body>
 </html>
-
